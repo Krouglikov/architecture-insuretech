@@ -1,0 +1,19 @@
+# Используем только url — это гарантирует, что все запросы пойдут туда
+prometheus:
+  url: http://prometheus-kube-prometheus-prometheus.monitoring.svc.cluster.local
+
+# Отключаем стандартные правила (очень важно!)
+rules:
+  default: false
+  custom:
+    - seriesQuery: 'http_requests_total{namespace="default",job!=""}'
+      resources:
+        overrides:
+          namespace: {resource: "namespace"}
+          pod: {resource: "pod"}
+      metricsQuery: |
+        sum by (namespace, pod) (
+          rate(http_requests_total{<<.LabelMatchers>>}[2m])
+        )
+      name:
+        as: test_app_rps

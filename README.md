@@ -88,3 +88,66 @@ Events:
 
 На текущих настройках удалось добиться только масштабирования до двух подов, при этом приложение вело себя нестабильно.
 
+## Часть 2. Масштабирование по метрике числа запросов
+
+Установка Prometheus в Minikube
+
+```shell
+helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+helm install prometheus prometheus-community/kube-prometheus-stack -n monitoring --create-namespace
+```
+
+Проверка установки и старта мониторинга в Minikube
+
+```shell
+kubectl get pods -n monitoring
+```
+
+Проброс порта для интерфейса Prometheus
+
+```shell
+kubectl port-forward -n monitoring prometheus-prometheus-kube-prometheus-prometheus-0 9090
+```
+
+Приложение уже обслуживает эндпойнт `/metrics`. Необходимо только настроить передачу в Prometheus.
+
+Настройка Prometheus adapter:
+
+```shell
+helm install prometheus-adapter prometheus-community/prometheus-adapter --namespace monitoring --values Task2/adapter-values.yaml
+```
+
+или (обновление)
+```shell
+helm upgrade prometheus-adapter prometheus-community/prometheus-adapter -f "Task2/adapter-values.yaml"  -n monitoring --reset-values  
+```
+
+или (полное обновление)
+
+```shell
+helm upgrade prometheus-adapter prometheus-community/prometheus-adapter -n monitoring --values Task2/adapter-values.yaml --install --reset-values  
+```
+
+Установка сервис-монитора
+
+```shell
+kubectl apply -f Task2/service-monitor.yaml
+```
+
+Применение нового правила HPA
+
+```shell
+kubectl apply -f Task2/hpa-new.yaml
+```
+
+Скриншоты дашборда Minikube:
+
+![after-new-hpa.PNG](Task2/images/after-new-hpa.PNG)
+
+Логи HPA Minikube:
+```
+Normal   SuccessfulRescale        6m10s                  horizontal-pod-autoscaler  New size: 4; reason: pods metric test_app_rps above target
+Normal   SuccessfulRescale        5m55s                  horizontal-pod-autoscaler  New size: 8; reason: pods metric test_app_rps above target
+Normal   SuccessfulRescale        5m38s                  horizontal-pod-autoscaler  New size: 9; reason:
+```
+

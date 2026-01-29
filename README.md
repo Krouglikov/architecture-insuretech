@@ -151,3 +151,16 @@ Normal   SuccessfulRescale        5m55s                  horizontal-pod-autoscal
 Normal   SuccessfulRescale        5m38s                  horizontal-pod-autoscaler  New size: 9; reason:
 ```
 
+# Задание 3. Переход на Event-Driven архитектуру
+
+Файл с результатами анализа проблем и
+рисков: [проблемы и риски.md](Task3/%D0%BF%D1%80%D0%BE%D0%B1%D0%BB%D0%B5%D0%BC%D1%8B%20%D0%B8%20%D1%80%D0%B8%D1%81%D0%BA%D0%B8.md)
+
+Диаграмма контейнеров решения:
+
+[InsureTech_C4_сontainer-diagram.drawio.xml](Task3/InsureTech_C4_%D1%81ontainer-diagram.drawio.xml)
+
+![InsureTech_C4_сontainer-diagram.drawio.png](Task3/InsureTech_C4_%D1%81ontainer-diagram.drawio.png)
+
+В применении паттерна Transactional Outbox нет необходимости, поскольку сервис `ins-product-aggregator` не хранит
+данные.

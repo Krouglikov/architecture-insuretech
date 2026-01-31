@@ -210,3 +210,7 @@ Normal   SuccessfulRescale        5m38s                  horizontal-pod-autoscal
 [InsureTech_C4_сontainer-diagram.drawio.xml](Task4/InsureTech_C4_%D1%81ontainer-diagram.drawio.xml)
 
 ![InsureTech_C4_сontainer-diagram.drawio.png](Task4/InsureTech_C4_%D1%81ontainer-diagram.drawio.png)
+
+# Задание 5. Проектирование GraphQL API
+
+Файл GraphQL-схемы: [schema.graphql](Task5/schema.graphql)

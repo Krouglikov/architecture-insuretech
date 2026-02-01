@@ -214,3 +214,7 @@ Normal   SuccessfulRescale        5m38s                  horizontal-pod-autoscal
 # Задание 5. Проектирование GraphQL API
 
 Файл GraphQL-схемы: [schema.graphql](Task5/schema.graphql)
+
+# Задание 6. Настройка Rate Limiting
+
+Обновленный конфигурационный файл Nginx: [nginx](Task6/nginx)

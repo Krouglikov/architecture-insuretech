@@ -1,0 +1,51 @@
+# Схема GraphQL для сервиса управления клиентскими данными (client-info)
+
+"""
+Информация о клиенте
+"""
+type Client {
+    id: String! # сохранено для эквивалентности API, но рекомендован тип ID
+    name: String
+    age: Int
+    documents: [Document!]! # Документы клиента
+    relatives: [Relative!]! # Родственники клиента
+}
+
+"""
+Документ клиента
+"""
+type Document {
+    id: String! # сохранено для эквивалентности API, но рекомендован тип ID
+    type: String
+    number: String
+    issueDate: String # желательно задать строгий формат дат; например, ISO
+    expiryDate: String # желательно задать строгий формат дат; например, ISO
+}
+
+"""
+Родственник клиента
+"""
+type Relative {
+    id: String! # сохранено для эквивалентности API, но рекомендован тип ID
+    relationType: String
+    name: String
+    age: Int
+}
+
+# Основные запросы (queries)
+type Query {
+    """
+    Получить клиента по ID
+    """
+    client(id: String!): Client
+
+    """
+    Получить документы клиента (альтернатива через client.documents)
+    """
+    clientDocuments(id: String!): [Document!]!
+
+    """
+    Получить родственников клиента (альтернатива через client.relatives)
+    """
+    clientRelatives(id: String!): [Relative!]!
+}

@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: test-app-deployment
+  labels:
+    app: test-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: test-app
+  template:
+    metadata:
+      labels:
+        app: test-app
+    spec:
+      containers:
+      - name: test-container
+        image: ghcr.io/yandex-practicum/scaletestapp:latest # Replace with your Docker image name and tag
+        resources:
+          limits:
+            memory: "30Mi"
+        ports:
+        - containerPort: 8080
